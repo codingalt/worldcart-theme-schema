@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WorldCart Theme Schema",
+  "description": "Schema for configuring WorldCart themes",
+  "type": "object",
+  "properties": {
+    "sections": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "default": "Header"
+            },
+            "settings": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": { "type": "string", "enum": ["color"] },
+                      "id": { "type": "string" },
+                      "label": { "type": "string" },
+                      "default": {
+                        "type": "string",
+                        "pattern": "^#(?:[0-9a-fA-F]{3}){1,2}$"
+                      }
+                    },
+                    "required": ["type", "id", "label", "default"]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": { "type": "string", "enum": ["image"] },
+                      "id": { "type": "string" },
+                      "label": { "type": "string" }
+                    },
+                    "required": ["type", "id", "label"]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": { "type": "string", "enum": ["array"] },
+                      "id": { "type": "string" },
+                      "label": { "type": "string" },
+                      "default": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "label": { "type": "string" },
+                            "url": { "type": "string", "format": "uri" }
+                          },
+                          "required": ["label", "url"]
+                        }
+                      }
+                    },
+                    "required": ["type", "id", "label", "default"]
+                  }
+                ]
+              }
+            }
+          },
+          "required": ["name", "settings"]
+        },
+        "footer": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "default": "Footer" },
+            "settings": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": { "type": "string", "enum": ["richtext"] },
+                  "id": { "type": "string" },
+                  "label": { "type": "string" },
+                  "default": { "type": "string" }
+                },
+                "required": ["type", "id", "label", "default"]
+              }
+            }
+          },
+          "required": ["name", "settings"]
+        },
+        "product": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "default": "Product Page" },
+            "settings": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": { "type": "string", "enum": ["checkbox"] },
+                  "id": { "type": "string" },
+                  "label": { "type": "string" },
+                  "default": { "type": "boolean" }
+                },
+                "required": ["type", "id", "label", "default"]
+              }
+            }
+          },
+          "required": ["name", "settings"]
+        }
+      }
+    }
+  },
+  "required": ["sections"]
+}
